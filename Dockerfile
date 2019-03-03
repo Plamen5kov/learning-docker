@@ -1,17 +1,17 @@
+# The FROM instruction initializes a new build stage and sets the Base Image for subsequent instructions.
 FROM node:10
 
-# this is where the app will go inside the image container
-WORKDIR /usr/src/app
+# The WORKDIR instruction sets the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile
+WORKDIR /usr/src/
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-# COPY package*.json ./
-
+# The RUN instruction will execute any commands in a new layer on top of the current image and commit the results
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
 
+# The COPY instruction copies new files or directories from <src> and adds them to the filesystem of the container at the path 
+COPY . .
+
+# The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime.
 EXPOSE 8080
 
+# The main purpose of a CMD is to provide defaults for an executing container. (only one per docker file)
 CMD [ "npm", "start" ]
